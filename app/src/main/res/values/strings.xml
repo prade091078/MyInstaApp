@@ -2,11 +2,12 @@
     <string name="app_name">InstaClone</string>
     <!-- Follow instructions https://www.back4app.com/docs/android/parse-android-sdk-->
 
-    <string name="parseAppId">enterkey</string>
-    <string name="parseAppClientId">enterkey</string>
-    <string name="parseAppServerId">enterykey</string>
+    <string name="parseAppId">ddni6JkJsO7EemFvWHvF37dd66KWanSaksnQNEU3</string>
+    <string name="parseAppClientId">LSgp66trtybE2H0hdXsmMCtXKRIjIKXVkeO7hIJi</string>
+    <string name="parseAppServerId">https://parseapi.back4app.com/</string>
 
     <string name="hintUsername">Enter your Username ...</string>
     <string name="passwordHint">Enter your Password ...</string>
     <string name="BtnString">SignUp</string>
+    <string name="textShare">Share</string>
 </resources>
