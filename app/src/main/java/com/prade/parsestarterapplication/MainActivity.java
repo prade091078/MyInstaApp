@@ -2,6 +2,7 @@ package com.prade.parsestarterapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -42,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          txtLogin.setOnClickListener(this);
          layout.setOnClickListener(this);
          image.setOnClickListener(this);
+
+         if(ParseUser.getCurrentUser() !=null) // already user loggedin
+         {
+             showUserList();
+         }
+
     }
 
     public void signup(View view) {
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (edTUsername.getText().toString().matches("") || edTPassword.getText().toString().matches("")) {
             Toast.makeText(this, "A username and password are required", Toast.LENGTH_SHORT).show();
         } else {
-            if (signupModeActive) {
+            if (signupModeActive) { // sign-up mode
                 ParseUser user = new ParseUser();
                 user.setUsername(edTUsername.getText().toString());
                 user.setPassword(edTPassword.getText().toString());
@@ -61,8 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void done(ParseException e) {
                         if (e == null) {
                             Toast.makeText(MainActivity.this, "Signup successful", Toast.LENGTH_SHORT).show();
+                            showUserList();
                         } else {
+                            Log.i("signup failed", e.getLocalizedMessage());
                             Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         }
                     }
                 });
@@ -72,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void done(ParseUser user, ParseException e) {
                         if(user!=null){
-
+                            showUserList();
                         }else {
                             Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -114,10 +124,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //everytime key edit
     @Override
     public boolean onKey(View view, int i, KeyEvent keyEvent) {
-        if(i==keyEvent.KEYCODE_ENTER) {
+        if(i==keyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
             signup(view);
         }
 
         return false;
+    }
+
+    public void showUserList() {
+        Intent intent = new Intent(getApplicationContext(),UserListActivity.class);
+        startActivity(intent);
     }
 }

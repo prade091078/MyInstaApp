@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">ParseStarterApplication</string>
+    <string name="app_name">InstaClone</string>
     <!-- Follow instructions https://www.back4app.com/docs/android/parse-android-sdk-->
 
     <string name="parseAppId">enterkey</string>
     <string name="parseAppClientId">enterkey</string>
-    <string name="parseAppServerId">https://parseapi.back4app.com/</string>
+    <string name="parseAppServerId">enterykey</string>
+
     <string name="hintUsername">Enter your Username ...</string>
     <string name="passwordHint">Enter your Password ...</string>
     <string name="BtnString">SignUp</string>
