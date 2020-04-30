@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -58,6 +60,10 @@ public class UserListActivity extends AppCompatActivity {
             } else {
                 getImage();
             }
+        }else if(item.getItemId() == R.id.signOut){
+            ParseUser.logOut();
+            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
         }
             return super.onOptionsItemSelected(item);
     }
@@ -123,9 +129,21 @@ public class UserListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
+        setTitle("All Users");
+
         final ListView listView = (ListView)findViewById(R.id.listViewUser);
         final ArrayList<String> usernames = new ArrayList<>();
         final ArrayAdapter adapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,usernames);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(),UserFeedActivity.class);
+                intent.putExtra("username",usernames.get(i));
+                startActivity(intent);
+            }
+        });
+
        // usernames.add("test");
         listView.setAdapter(adapter);
 
@@ -133,6 +151,8 @@ public class UserListActivity extends AppCompatActivity {
        ParseQuery<ParseUser> query = ParseUser.getQuery();
         //hide loggedin user in list
         query.whereNotEqualTo("username",ParseUser.getCurrentUser().getUsername());
+       // query.whereEqualTo("username","My Feed");
+
         query.addAscendingOrder("username");
 
         query.findInBackground(new FindCallback<ParseUser>() {

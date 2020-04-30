@@ -10,4 +10,6 @@
     <string name="passwordHint">Enter your Password ...</string>
     <string name="BtnString">SignUp</string>
     <string name="textShare">Share</string>
+    <string name="textSignOut">Logout</string>
+
 </resources>
